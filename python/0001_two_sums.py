@@ -16,6 +16,25 @@ class Solution(object):
         :type target: int
         :rtype: List[int]
         """
+        return self.hash_based(nums, target)
+
+    def brute_force(self, nums, target):
+        for idx1, val1 in enumerate(nums):
+            for idx2, val2 in enumerate(nums[idx1+1:]):
+                if val1 + val2 == target:
+                    return [idx1, idx1+1+idx2]
+        raise Exception('No two sum solution')
+
+    def hash_based(self, nums, target):
+        buf = {}
+        for idx in range(len(nums)):
+            comp = target-nums[idx]
+            if comp in buf:
+                return [idx, buf[comp]]
+            buf[nums[idx]] = idx
+        raise Exception('No two sum solution')
+
+    def twoSum0(self, nums, target):
         nums_range = range(len(nums))
         for idx0 in nums_range:
             for idx1 in nums_range:
